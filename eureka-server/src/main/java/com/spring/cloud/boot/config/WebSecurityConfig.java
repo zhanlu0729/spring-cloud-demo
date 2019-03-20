@@ -1,4 +1,4 @@
-package com.spring.cloud.msc.eurekaserver.config;
+package com.spring.cloud.boot.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
