@@ -1,21 +1,20 @@
 package com.spring.cloud.msc.consumer.movie.feign;
 
 import com.spring.cloud.boot.model.JsonResult;
+import com.spring.cloud.msc.consumer.movie.model.User;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class UserFeignClientImpl implements UserFeignClient {
 
     @Override
-    public JsonResult findById(Long id) {
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put("id", -1L);
-        return JsonResult.builder().data(userMap).build();
+    public Object findById(Long id) {
+        User user = new User();
+        user.setId(-1L);
+        return JsonResult.builder().data(user).build();
     }
 
     @Override

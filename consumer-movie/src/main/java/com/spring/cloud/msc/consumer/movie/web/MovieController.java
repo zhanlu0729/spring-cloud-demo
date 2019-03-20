@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @RestController
@@ -21,8 +22,11 @@ public class MovieController {
     @Value("${provider.user.serviceUrl}")
     private String userServiceUrl;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping(value = "/{id}")
-    public JsonResult findById(@PathVariable Long id) {
+    public Object findById(@PathVariable Long id) {
         return userFeignClient.findById(id);
     }
 

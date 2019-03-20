@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UserFeignClient {
 
     @GetMapping(value = "/{id}")
-    JsonResult findById(@PathVariable("id") Long id);
+    Object findById(@PathVariable("id") Long id);
 
     @GetMapping(value = "/instances")
     List<ServiceInstance> userInstances();
