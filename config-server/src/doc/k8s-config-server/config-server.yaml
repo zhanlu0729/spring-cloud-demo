@@ -1,17 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: bone-config-server
-  namespace: prod
+  name: config-server
+  namespace: dev
 spec:
   replicas: 1
   minReadySeconds: 120
   template:
     metadata:
-      name: bone-config-server
-      namespace: prod
+      name: config-server
+      namespace: dev
       labels:
-        app: bone-config-server
+        app: config-server
     spec:
       restartPolicy: Always
       volumes:
@@ -21,14 +21,14 @@ spec:
       containers:
         - name: config-server
           imagePullPolicy: Always
-          image: k8s-registry.banksteel.com/baseplatform/bone-config-server:v1.9
+          image: k8s-registry.xxx.com/baseplatform/config-server:v1.9
           env:
             - name: SVC_TYPE
               value: config-server
             - name: JAVA_OPTS
-              value: "-Xmx1500m -Xms1500m -XX:NativeMemoryTracking=summary -Denv=prod -Dspring.application.name=bone-cloud-config-server"
-            - name: BONE_config_SERVER_URL
-              value: "http://bone:123456@192.168.200.64:30084/eureka/"
+              value: "-Xmx1500m -Xms1500m -XX:NativeMemoryTracking=summary -Denv=dev -Dspring.application.name=config-server"
+            - name: EUREKA_SERVER_URL
+              value: "http://bone:123456@localhost:8761/eureka/"
             - name: MY_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -61,14 +61,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bone-config-server
-  namespace: prod
+  name: config-server
+  namespace: dev
 spec:
   type: NodePort
   ports:
     - name: "port-8080"
       port: 8080
       targetPort: 8081
-      nodePort: 30088
+      nodePort: 30085
   selector:
-    app: bone-config-server
+    app: config-server
+
