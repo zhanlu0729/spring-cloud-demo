@@ -12,16 +12,23 @@ spring:
 eureka:
   environment: ${env:dev}
   server:
-    responseCacheAutoExpirationInSeconds: 180 #指定
-    evictionIntervalTimerInMs: 1000 #指定EvictionTask定时任务调用的频率,用于剔除过期的实例
-    enable-self-preservation: false #是否开启自我保护
+    #指定
+    responseCacheAutoExpirationInSeconds: 180
+    #指定EvictionTask定时任务调用的频率,用于剔除过期的实例
+    evictionIntervalTimerInMs: 1000
+    #是否开启自我保护
+    enable-self-preservation: false
   instance:
     instance-id: ${HOSTNAME:localhost}:${server.port}
-    prefer-ip-address: true #优先使用IP地址进行注册
+    #优先使用IP地址进行注册
+    prefer-ip-address: true
     instance-enabled-onit: false
   client:
-    register-with-eureka: true #是否将自己注册到Eureka
-    fetch-registry: true #是否从Eureka拉取Server注册信息
-    registry-fetch-interval-seconds: 5 #从Eureka拉取Server注册信息的频率
+    #是否将自己注册到Eureka
+    register-with-eureka: true
+    #是否从Eureka拉取Server注册信息
+    fetch-registry: true
+    #从Eureka拉取Server注册信息的频率
+    registry-fetch-interval-seconds: 5
     serviceUrl:
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/

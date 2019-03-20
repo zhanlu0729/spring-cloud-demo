@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableFeignClients(basePackages = "com.spring.cloud.msc")
 @ComponentScan(basePackages = "com.spring.cloud.msc")
-public class ConsumerMovieConfiguration {
+public class MainConfig {
 
 }

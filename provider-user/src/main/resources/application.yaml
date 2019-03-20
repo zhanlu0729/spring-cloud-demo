@@ -3,7 +3,7 @@ server:
 spring:
   application:
     name: provider-user
-    jpa:
+  jpa:
     generate-ddl: false
     show-sql: true
     hibernate:
@@ -23,6 +23,9 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_SERVER_URL:http://bone:123456@localhost:8761/eureka/}
   instance:
-    prefer-ip-address: true #优先使用IP地址进行注册
-    leaseExpirationDurationInSeconds: 15 #Eureka Client间隔多久向Eureka Server发送心跳,告知Eureka Server自己还存活,默认90
-    leaseRenewalIntervalInSeconds: 5 #Eureka Client向Eureka Server发送心跳的时间间隔,默认30
+    #优先使用IP地址进行注册
+    prefer-ip-address: true
+    #Eureka Client间隔多久向Eureka Server发送心跳,告知Eureka Server自己还存活,默认90
+    leaseExpirationDurationInSeconds: 15
+    #Eureka Client向Eureka Server发送心跳的时间间隔,默认30
+    leaseRenewalIntervalInSeconds: 5
