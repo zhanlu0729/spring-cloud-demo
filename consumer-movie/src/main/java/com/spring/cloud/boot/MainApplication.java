@@ -1,13 +1,13 @@
-package com.banksteel.bone.cloud.boot;
+package com.spring.cloud.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MainTests {
+public class MainApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MainTests.class, args);
+        SpringApplication.run(MainApplication.class, args);
     }
 
 }
