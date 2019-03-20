@@ -1,10 +1,16 @@
 server:
-  port: 8811
+  port: 8762
 spring:
   application:
-    name: bone-cloud-config-server
+    name: config-server
   profiles:
     active: default,local,git
+  security:
+    basic:
+      enabled: true
+    user:
+      name: bone
+      password: 123456
   cloud:
     config:
       server:
@@ -14,10 +20,14 @@ spring:
           searchPaths: "/global/{profile}/,/{application}/{profile}"
           defaultLabel: master
           username: tairan0729
-          password: "a111111"
+          password: ouyezi0792
       failFast: true
       enabled: true
       name: ${spring.application.name},global
+  rabbitmq:
+    addresses: 192.168.200.127:5672
+    username: admin
+    password: mysteel123
 eureka:
   client:
     service-url:
