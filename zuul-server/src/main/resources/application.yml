@@ -1,0 +1,65 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: bone-cloud-gateway
+  #zipkin:
+  #  baseUrl: http://192.168.200.66:18087
+  security:
+    user:
+      name: bone
+      password: 123456
+  #redis:
+  #  database: 0
+  #  host: 192.168.200.66
+  #  port: 6379
+  cloud:
+    gateway:
+      # 是否与服务发现组件进行结合，通过 serviceId(必须设置成大写) 转发到具体的服务实例。
+      # 默认为false，设为true便开启通过服务中心的自动根据 serviceId 创建路由的功能。
+      # 通过服务名称方式转发
+      discovery:
+        #路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问。
+        locator:
+          enabled: true
+          #服务名称支持小写，默认服务注册中心服务名称为大写
+          lowerCaseServiceId: true
+          predicates:
+          # 定义请求服务路径规则
+          - Path='/'+serviceId+'/**'
+          filters:
+          # 去除path的serviceId前缀
+          - RewritePath='/' + serviceId + '/(?<remaining>.*)', '/${remaining}'
+          # 启用Hystrix
+          - Hystrix=serviceId
+          # 启用retry，需要放置在Hystrix后面。因Spring Cloud Gateway不能使用Ribbon的retry功能，只能使用此RetryGatewayFilter
+          # 默认重试规则：1.GET请求 2.服务端返回的状态码为5xx 3.异常IOException或TimeoutException
+          - Retry
+hystrix:
+  command:
+    # default配置全局HystrixCommand
+    default:
+      # 【注】Spring Cloud Gateway的execution.isolation.strategy默认使用SEMAPHORE
+      # 配置HystrixCommand线程执行的超时时间，默认1000
+      execution.isolation.thread.timeoutInMilliseconds: 5000
+      # 默认值10
+      execution.isolation.semaphore.maxConcurrentRequests: 100
+      # 默认值10
+      fallback.isolation.semaphore.maxConcurrentRequests: 10
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
+  instance:
+    instance-id: ${HOSTNAME:localhost}:${server.port}
+    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
+    prefer-ip-address: true 
+    # 注册中心需要等待多长时间没有接收到心跳检测后可以删除该实例(默认90s)
+    leaseExpirationDurationInSeconds: 15
+    # #Eureka Client向Eureka Server发送心跳的时间间隔,默认30
+    leaseRenewalIntervalInSeconds: 5
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
