@@ -49,7 +49,7 @@ hystrix:
 eureka:
   client:
     service-url:
-      defaultZone: ${BONE_EUREKA_SERVER_URL:http://${spring.security.user.name}:${spring.security.user.password}@192.168.200.64:30081/eureka/}
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
   instance:
     instance-id: ${HOSTNAME:localhost}:${server.port}
     # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
@@ -58,9 +58,8 @@ eureka:
     leaseExpirationDurationInSeconds: 15
     # #Eureka Client向Eureka Server发送心跳的时间间隔,默认30
     leaseRenewalIntervalInSeconds: 5
-
 management:
   endpoints:
     web:
       exposure:
-        include: gateway
+        include: "*"

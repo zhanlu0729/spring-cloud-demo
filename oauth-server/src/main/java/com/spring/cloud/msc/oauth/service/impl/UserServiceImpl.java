@@ -1,8 +1,8 @@
-package com.banksteel.bone.cloud.oauth.service.impl;
+package com.spring.cloud.msc.oauth.service.impl;
 
-import com.banksteel.bone.cloud.oauth.dao.IUserDao;
-import com.banksteel.bone.cloud.oauth.entity.User;
-import com.banksteel.bone.cloud.oauth.service.IUserService;
+import com.spring.cloud.msc.oauth.dao.IUserDao;
+import com.spring.cloud.msc.oauth.entity.User;
+import com.spring.cloud.msc.oauth.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserServiceImpl implements IUserService {

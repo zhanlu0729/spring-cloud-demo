@@ -27,12 +27,11 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: ${BONE_EUREKA_SERVER_URL:http://${spring.security.user.name}:${spring.security.user.password}@192.168.200.64:30081/eureka/}
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
   instance:
     leaseExpirationDurationInSeconds: 15
     leaseRenewalIntervalInSeconds: 5
     prefer-ip-address: true
-
 #Mybatis配置
 #mybatis:
 #  typeAliasesPackage: com.banksteel.sc.serviceoauth.entity
@@ -42,7 +41,6 @@ eureka:
 feign:
   hystrix:
     enabled: true
-
 auth:
   jwt:
     secret: "bone12345678"

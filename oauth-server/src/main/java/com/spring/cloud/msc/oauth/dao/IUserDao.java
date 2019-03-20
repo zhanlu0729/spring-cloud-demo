@@ -1,6 +1,6 @@
-package com.banksteel.bone.cloud.oauth.dao;
+package com.spring.cloud.msc.oauth.dao;
 
-import com.banksteel.bone.cloud.oauth.entity.User;
+import com.spring.cloud.msc.oauth.entity.User;
 
 public interface IUserDao {
 

@@ -1,22 +1,35 @@
+server:
+  port: 8811
 spring:
   application:
     name: bone-cloud-config-server
   profiles:
-    active: default,local,subversion
+    active: default,local,git
   cloud:
     config:
       server:
         bootstrap: true
-        svn:
-          uri: "http://192.168.200.52/svn200/k9s-9/branches"
+        git:
+          uri: https://github.com/zhanlu0729/spring-cloud.git
           searchPaths: "/global/{profile}/,/{application}/{profile}"
-          defaultLabel: "k9s-9_187_142_819_201903081245"
-          username: "yxl"
+          defaultLabel: master
+          username: tairan0729
           password: "a111111"
       failFast: true
       enabled: true
       name: ${spring.application.name},global
-
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
+  instance:
+    instance-id: ${HOSTNAME:localhost}:${server.port}
+    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
+    prefer-ip-address: true
+    # 注册中心需要等待多长时间没有接收到心跳检测后可以删除该实例(默认90s)
+    leaseExpirationDurationInSeconds: 15
+    # #Eureka Client向Eureka Server发送心跳的时间间隔,默认30
+    leaseRenewalIntervalInSeconds: 5
 # 管理监测端口
 management:
   endpoints:

@@ -1,4 +1,4 @@
-package com.banksteel.bone.cloud.oauth.web;
+package com.spring.cloud.msc.oauth.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.banksteel.bone.security.jwt.TokenUtils;

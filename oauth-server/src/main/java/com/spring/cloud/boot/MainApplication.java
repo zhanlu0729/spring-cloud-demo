@@ -1,12 +1,17 @@
-package com.banksteel.bone.cloud.boot.config;
+package com.spring.cloud.boot;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication  //SpringBoot 启动入口
 @EnableDiscoveryClient  //自动注册和服务发现
 @EnableCircuitBreaker   //开启Hystrix监控
-public class BoneCloudOAuthConfig {
+@SpringBootApplication
+public class MainApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MainApplication.class, args);
+    }
 
 }

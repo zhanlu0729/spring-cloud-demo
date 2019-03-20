@@ -1,4 +1,4 @@
-package com.banksteel.bone.cloud.oauth.web.advice;
+package com.spring.cloud.msc.oauth.web.advice;
 
 import com.bone.cloud.boot.constants.JsonResultConstants;
 import com.bone.cloud.boot.enums.JsonResultEnum;

@@ -1,4 +1,4 @@
-package com.banksteel.bone.cloud.oauth.entity;
+package com.spring.cloud.msc.oauth.entity;
 
 public class User {
     private Long id;
