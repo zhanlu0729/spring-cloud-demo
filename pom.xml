@@ -52,22 +52,7 @@
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <!-- Maven插件的版本及属性定义 end -->
-
     </properties>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>banksteel.repo.plugin</id>
-            <layout>default</layout>
-            <url>http://code.banksteel.com/mvn/content/groups/banksteel</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
