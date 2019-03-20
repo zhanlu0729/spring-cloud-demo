@@ -52,6 +52,8 @@
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <!-- Maven插件的版本及属性定义 end -->
+
+        <cloud-boot.version>0.0.1</cloud-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -149,6 +151,12 @@
                 <version>${pagehelper-spring-boot.version}</version>
             </dependency>
             <!-- 第三方框架 end -->
+
+            <dependency>
+                <groupId>com.spring.cloud.msc</groupId>
+                <artifactId>cloud-boot</artifactId>
+                <version>${cloud-boot.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
