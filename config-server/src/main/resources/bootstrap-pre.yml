@@ -1,0 +1,12 @@
+server:
+  port: 30087
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${BONE_EUREKA_SERVER_URL:http://${spring.security.user.name}:${spring.security.user.password}@192.168.200.64:30083/eureka/}
+
+# 日志
+logging:
+  level:
+    root: INFO

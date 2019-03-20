@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: bone-cloud-config-server
+  profiles:
+    active: default,local,subversion
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        svn:
+          uri: "http://192.168.200.52/svn200/k9s-9/branches"
+          searchPaths: "/global/{profile}/,/{application}/{profile}"
+          defaultLabel: "k9s-9_187_142_819_201903081245"
+          username: "yxl"
+          password: "a111111"
+      failFast: true
+      enabled: true
+      name: ${spring.application.name},global
+
+# 管理监测端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

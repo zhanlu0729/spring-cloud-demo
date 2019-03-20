@@ -1,0 +1,74 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: bone-config-server
+  namespace: pre
+spec:
+  replicas: 1
+  minReadySeconds: 120
+  template:
+    metadata:
+      name: bone-config-server
+      namespace: pre
+      labels:
+        app: bone-config-server
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: "app-logs"
+          hostPath:
+            path: "/apply/logs"
+      containers:
+        - name: config-server
+          imagePullPolicy: Always
+          image: k8s-registry.banksteel.com/baseplatform/bone-config-server:v1.9
+          env:
+            - name: SVC_TYPE
+              value: config-server
+            - name: JAVA_OPTS
+              value: "-Xmx1500m -Xms1500m -XX:NativeMemoryTracking=summary -Denv=pre -Dspring.application.name=bone-cloud-config-server"
+            - name: BONE_config_SERVER_URL
+              value: "http://bone:123456@192.168.200.64:30083/eureka/"
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            - containerPort: 8081
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2000Mi
+            requests:
+              cpu: 500m
+              memory: 1500Mi
+          volumeMounts:
+            - name: "app-logs"
+              mountPath: "/apply/logs"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bone-config-server
+  namespace: pre
+spec:
+  type: NodePort
+  ports:
+    - name: "port-8080"
+      port: 8080
+      targetPort: 8081
+      nodePort: 30087
+  selector:
+    app: bone-config-server
