@@ -12,23 +12,61 @@ spring:
 eureka:
   environment: ${env:dev}
   server:
-    #指定
-    responseCacheAutoExpirationInSeconds: 180
-    #指定EvictionTask定时任务调用的频率,用于剔除过期的实例
-    evictionIntervalTimerInMs: 1000
-    #是否开启自我保护
+    ################注册中心节点和客户端节点间配置################
+    # 是否开启自我保护
     enable-self-preservation: false
+    # 清理无效注册节点的时间间隔
+    eviction-interval-timer-in-ms: 5000
+    # 清理过期数据的时间间隔
+    delta-retention-timer-interval-in-ms: 5000
+    # 不提供过期实例数据给客户端
+    disable-delta: false
+    # 使用ReadOnlyCache缓存注册节点信息
+    use-read-only-response-cache: true
+    # 清除ReadOnlyCache缓存中过期注册节点信息的时间间隔
+    response-cache-auto-expiration-in-seconds: 60
+    # 更新ReadOnlyCache缓存中注册节点信息的时间间隔
+    response-cache-update-interval-ms: 10000
+
+    ################注册中心节点和节点间配置################
+    # 启用节点间复制的最少可用实例个数
+    min-available-instances-for-peer-replication: 3
+    # 实例间复制信息的最长时间
+    max-time-for-replication: 10000
+    # 实例间复制信息的最小线程数量
+    min-threads-for-peer-replication: 2
+    # 实例间复制信息的最大线程数量
+    max-threads-for-peer-replication: 2
+    # 实例更新数据信息的时间间隔
+    peer-eureka-nodes-update-interval-ms: 60000
+    # 实例刷新状态信息的时间间隔
+    peer-eureka-status-refresh-time-interval-ms: 30000
+
   instance:
+    # 实例ID
     instance-id: ${HOSTNAME:localhost}:${server.port}
     #优先使用IP地址进行注册
     prefer-ip-address: true
-    instance-enabled-onit: false
+    # 健康检测心跳的过期时间(服务端在该时间段内没有收到心跳则删除该实例)
+    lease-expiration-duration-in-seconds: 30
+    # 发送健康检测心跳的时间间隔
+    lease-renewal-interval-in-seconds: 10
+    # 实例状态信息的URL路径
+    status-page-url-path: "/actuator/info"
+    # 实例健康信息的URL路径
+    health-check-url-path: "/actuator/health"
+
   client:
     #是否将自己注册到Eureka
     register-with-eureka: true
     #是否从Eureka拉取Server注册信息
     fetch-registry: true
-    #从Eureka拉取Server注册信息的频率
+    #从Eureka拉取Server注册信息的时间间隔
     registry-fetch-interval-seconds: 5
+    # 注册服务器地址
     serviceUrl:
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
+    # 刷新缓存线程池的大小
+    cache-refresh-executor-thread-pool-size: 2
+    # 拉取注册中心信息的时间间隔
+    eureka-service-url-poll-interval-seconds: 30

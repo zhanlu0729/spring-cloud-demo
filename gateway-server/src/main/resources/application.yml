@@ -2,17 +2,11 @@ server:
   port: 8080
 spring:
   application:
-    name: bone-cloud-gateway
-  #zipkin:
-  #  baseUrl: http://192.168.200.66:18087
+    name: gateway-server
   security:
     user:
       name: bone
       password: 123456
-  #redis:
-  #  database: 0
-  #  host: 192.168.200.66
-  #  port: 6379
   cloud:
     gateway:
       # 是否与服务发现组件进行结合，通过 serviceId(必须设置成大写) 转发到具体的服务实例。
