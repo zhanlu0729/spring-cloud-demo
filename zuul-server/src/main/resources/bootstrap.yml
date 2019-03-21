@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: zuul-server
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8762/
+      profile: ${env:local}
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+  profiles:
+    active: ${env:local}
+
+zuul:
+  #默认关闭,开启重试
+  retryable: true
+  ribbon:
+    #默认懒加载,第一次请求会进行数据预热从而导致失败,故而开启饥饿加载
+    eager-load:
+      enabled: true
+
+ribbon:
+  #同一个服务重试的次数(除去第一次)
+  MaxAutoRetries: 1
+  #切换相同服务数量
+  MaxAutoRetriesNextServer: 1
