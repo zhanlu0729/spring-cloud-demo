@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
-public class SecondPreFilter extends ZuulFilter {
+public class ThirdPreFilter extends ZuulFilter {
 
     @Override
     public String filterType() {
@@ -19,31 +19,29 @@ public class SecondPreFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 2;
+        return 3;
     }
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        return (boolean)RequestContext.getCurrentContext().get("logic-is-success");
     }
 
     @Override
     public Object run() throws ZuulException {
         RequestContext context = RequestContext.getCurrentContext();
-        context.getResponse().setCharacterEncoding("UTF-8");
         HttpServletRequest request = context.getRequest();
-        System.err.println("这是第二个自定义Filter：" + request.getQueryString());
-        String a = request.getParameter("a");
-        if (StringUtils.isEmpty(a)) {
+        System.err.println("这是第三个自定义Filter：" + request.getQueryString());
+        String b = request.getParameter("b");
+        if (StringUtils.isEmpty(b)) {
             log.warn("b参数为空");
             //禁止路由及访问下游服务
             context.setSendZuulResponse(false);
-            context.setResponseBody("{\"status\":500, \"message\":\"a参数为空\"}");
+            context.setResponseBody("{\"status\":500, \"message\":\"b参数为空\"}");
             //作为同类型下游Filter的开关
             context.set("logic-is-success", false);
             return null;
         }
-        context.set("logic-is-success", true);
         return null;
     }
 

@@ -22,7 +22,26 @@ zuul:
       enabled: true
 
 ribbon:
+  #连接超时
+  ConnectTimeout: 3000
+  #读超时
+  ReadTimeout: 60000
   #同一个服务重试的次数(除去第一次)
   MaxAutoRetries: 1
-  #切换相同服务数量
+  #重试下一个服务的最大数量(除去第一个服务)
   MaxAutoRetriesNextServer: 1
+  #启用okhttp
+  http:
+    client:
+      enabled: false
+  okhttp:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+
