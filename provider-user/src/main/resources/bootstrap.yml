@@ -3,9 +3,13 @@ spring:
     name: provider-user
   cloud:
     config:
-      enabled: true
+      # 启动配置中心的服务发现
+      #      discovery:
+      #        enabled: true
+      #        service-id: "config-server"
       uri: http://localhost:8762/
       profile: local
+      name: ${spring.application.name},global
   rabbitmq:
     addresses: localhost:5672
     username: guest
