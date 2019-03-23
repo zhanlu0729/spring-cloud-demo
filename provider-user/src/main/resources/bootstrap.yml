@@ -13,6 +13,6 @@ spring:
   rabbitmq:
     addresses: localhost:5672
     username: guest
-    password: guest
+    password: liuqi
   profiles:
     active: local

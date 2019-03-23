@@ -3,11 +3,10 @@ package com.spring.cloud.msc.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.util.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 public class SecondPreFilter extends ZuulFilter {
@@ -33,6 +32,11 @@ public class SecondPreFilter extends ZuulFilter {
         context.getResponse().setCharacterEncoding("UTF-8");
         HttpServletRequest request = context.getRequest();
         System.err.println("这是第二个自定义Filter：" + request.getQueryString());
+        String uri = request.getRequestURI();
+        if (!uri.startsWith("/test/")) {
+            context.set("logic-is-success", true);
+            return null;
+        }
         String a = request.getParameter("a");
         if (StringUtils.isEmpty(a)) {
             log.warn("b参数为空");

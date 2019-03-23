@@ -32,6 +32,10 @@ public class ThirdPreFilter extends ZuulFilter {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         System.err.println("这是第三个自定义Filter：" + request.getQueryString());
+        String uri = request.getRequestURI();
+        if (!uri.startsWith("/test/")) {
+            return null;
+        }
         String b = request.getParameter("b");
         if (StringUtils.isEmpty(b)) {
             log.warn("b参数为空");

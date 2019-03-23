@@ -9,9 +9,14 @@ spring:
   rabbitmq:
     addresses: localhost:5672
     username: guest
-    password: guest
+    password: liuqi
   profiles:
     active: ${env:local}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_spring_cloud?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: liuqi
 
 zuul:
   #默认关闭,开启重试
@@ -22,6 +27,8 @@ zuul:
       enabled: true
 
 ribbon:
+  eureka:
+    enabled: true
   #连接超时
   ConnectTimeout: 3000
   #读超时
@@ -42,6 +49,4 @@ hystrix:
       execution:
         timeout:
           enabled: false
-        isolation:
-          thread:
 

@@ -27,7 +27,7 @@ spring:
   rabbitmq:
     addresses: localhost:5672
     username: guest
-    password: guest
+    password: liuqi
 eureka:
   client:
     service-url:
