@@ -1,58 +1,32 @@
 server:
-  port: 8080
+  servlet:
+    context-path: /uaa
 spring:
   application:
-    name: bone-cloud-oauth-provider
-  #zipkin:
-  #  baseUrl: http://192.168.200.66:18087
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/test
-#    username: root
-#    password: 123456
-#    driverClassName: com.mysql.jdbc.Driver
-#    type: com.alibaba.druid.pool.DruidDataSource
-  security:
-    user:
-      name: bone
-      password: 123456
-  mvc:
-    throwExceptionIfNoHandlerFound: true
-    resources:
-      addMappings: false
-  redis:
-    database: 0
-    host: 192.168.200.105
-    port: 6380
+    name: oauth-server
+  cloud:
+    config:
+      uri: http://localhost:8762/
+      profile: ${env:local}
+      name: ${spring.application.name},global
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: liuqi
+  profiles:
+    active: ${env:local}
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
-  instance:
-    leaseExpirationDurationInSeconds: 15
-    leaseRenewalIntervalInSeconds: 5
-    prefer-ip-address: true
-#Mybatis配置
-#mybatis:
-#  typeAliasesPackage: com.banksteel.sc.serviceoauth.entity
-#  mapperLocations: classpath:mapper/*.xml
+#安全配置
+security:
+  oauth2:
+    client:
+      #令牌端点
+      access-token-uri: http://localhost:8764/uaa/oauth/token
+      user-authorization-uri: http://localhost:8764/uaa/oauth/authorize
+      #授权
+      client-id: ${spring.application.name}
+      client-secret: secret
+    resource:
+      jwt:
+        key-value: springcloud123
 
-#Fegion配置
-feign:
-  hystrix:
-    enabled: true
-auth:
-  jwt:
-    secret: "bone12345678"
-    issuer: "bone"
-    claimName: "user"
-    token:
-#      expireTime: 10000
-      expireTime: 7200000
-      invalidKeyFormat: "oauth:token:invalid:%s"
-    refreshToken:
-#      expireTime: 80000
-      expireTime: 28800000
-      keyFormat: "oauth:refreshToken:%s"
-    blackList:
-      keyFormat: "oauth:token:bl:%s"

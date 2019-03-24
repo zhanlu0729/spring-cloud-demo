@@ -14,7 +14,7 @@ spring:
     active: ${env:local}
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_spring_cloud?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/db_spring_cloud?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: liuqi
 
@@ -49,4 +49,18 @@ hystrix:
       execution:
         timeout:
           enabled: false
+#安全配置
+security:
+  oauth2:
+    client:
+      #令牌端点
+      access-token-uri: http://localhost:8764/uaa/oauth/token
+      user-authorization-uri: http://localhost:8764/uaa/oauth/authorize
+      #授权端点
+      client-id: oauth-server #OAuth2客户端ID
+      client-secret: secret #OAuth2客户端密钥
+    resource:
+      jwt:
+        #使用对称加密,默认使用HS256
+        key-value: springcloud123
 

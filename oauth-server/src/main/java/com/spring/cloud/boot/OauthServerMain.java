@@ -2,16 +2,19 @@ package com.spring.cloud.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
-@EnableDiscoveryClient  //自动注册和服务发现
-@EnableCircuitBreaker   //开启Hystrix监控
+/**
+ *
+ */
+@EnableAuthorizationServer
+@EnableDiscoveryClient
 @SpringBootApplication
-public class MainApplication {
+public class OauthServerMain {
 
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(OauthServerMain.class, args);
     }
 
 }

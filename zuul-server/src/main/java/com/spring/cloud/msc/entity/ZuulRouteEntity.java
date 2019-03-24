@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ZuulRouteEntity {
 
-    private Long id;
+    private String id;
     private String path;
     private String serviceId;
     private String url;

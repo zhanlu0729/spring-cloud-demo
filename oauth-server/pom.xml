@@ -10,44 +10,36 @@
     <relativePath/>
   </parent>
   
-  <artifactId>bone-cloud-oauth-provider</artifactId>
+  <artifactId>oauth-server</artifactId>
   <version>1.0.0</version>
-  <name>bone-cloud-oauth-provider</name>
+  <name>oauth-server</name>
 
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-redis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+      <artifactId>spring-cloud-starter-security</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-sleuth</artifactId>
+      <artifactId>spring-cloud-starter-oauth2</artifactId>
     </dependency>
   </dependencies>
 
   <build>
-    <finalName>bone-cloud-oauth-provider</finalName>
+    <finalName>${project.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
