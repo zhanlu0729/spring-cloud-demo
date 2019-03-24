@@ -7,12 +7,12 @@ import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.core.annotation.Order;
 
+@Order(1)
 @ComponentScan(basePackages = {"com.spring.cloud.msc"})
 @Configuration
-public class DynamicZuulConfig extends WebSecurityConfigurerAdapter {
+public class DynamicZuulConfig {
 
     @Autowired
     private ZuulProperties zuulProperties;
@@ -24,12 +24,6 @@ public class DynamicZuulConfig extends WebSecurityConfigurerAdapter {
         DynamicZuulRouteLocator locator = new DynamicZuulRouteLocator(serverProperties.getServlet().getPath(),
             zuulProperties);
         return locator;
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().mvcMatchers("/login", "/client/**").permitAll().anyRequest().authenticated().and()
-            .csrf().disable();
     }
 
 }

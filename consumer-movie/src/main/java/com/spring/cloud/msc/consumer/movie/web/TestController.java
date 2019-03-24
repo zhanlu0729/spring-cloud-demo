@@ -13,4 +13,14 @@ public class TestController {
         return "本地跳转：" + (a + b);
     }
 
+  /*  @GetMapping(value = "auth")
+    public String auth(HttpServletRequest request) {
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = headerNames.nextElement();
+            System.err.println(key + ":" + request.getHeader(key));
+        }
+        return "auth";
+    }*/
+
 }
