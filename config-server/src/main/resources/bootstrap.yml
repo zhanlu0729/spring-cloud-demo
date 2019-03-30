@@ -17,7 +17,7 @@ spring:
         bootstrap: true
         git:
           uri: https://github.com/zhanlu0729/spring-cloud.git
-          searchPaths: "/global/{profile}/,/{application}/{profile}"
+          searchPaths: "/global/,/{application}/"
           defaultLabel: master
           username: tairan0729
           password: ouyezi0792

@@ -1,0 +1,74 @@
+spring:
+  profiles:
+    active: default,${env:local}
+  cloud:
+    config:
+      failFast: true
+      enabled: true
+      name: ${spring.application.name},global
+      profile: ${env:local}
+      retry:
+        max-attempts: 5
+        initial-interval: 1000
+        multiplier: 1.1
+        max-interval: 3000
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+---
+spring:
+  profiles: pre
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+eureka:
+  client:
+    serviceUrl:
+      # 默认注册中心地址
+      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}

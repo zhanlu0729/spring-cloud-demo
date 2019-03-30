@@ -205,7 +205,7 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <configuration>
-                        <mainClass>com.spring.cloud.boot.Main</mainClass>
+                        <mainClass>spring.cloud.boot.Main</mainClass>
                     </configuration>
                     <executions>
                         <execution>
