@@ -35,11 +35,11 @@ spring:
     config:
       # 配置中心地址,在配置中心自身配置项变化时刷新使用
       uri: ${CONFIG_SERVER_URL:http://localhost:8881}
-  eureka:
-    client:
-      serviceUrl:
-        # 默认注册中心地址
-        defaultZone: http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/
+eureka:
+  client:
+    serviceUrl:
+      # 默认注册中心地址
+      defaultZone: http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/
 ---
 spring:
   profiles: dev
@@ -51,11 +51,11 @@ spring:
     config:
       # 配置中心地址,在配置中心自身配置项变化时刷新使用
       uri: ${CONFIG_SERVER_URL:http://localhost:8882}
-  eureka:
-    client:
-      serviceUrl:
-        # 默认注册中心地址
-        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8672/eureka/}
+eureka:
+  client:
+    serviceUrl:
+      # 默认注册中心地址
+      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8672/eureka/}
 ---
 spring:
   profiles: test
@@ -67,11 +67,11 @@ spring:
     config:
       # 配置中心地址,在配置中心自身配置项变化时刷新使用
       uri: ${CONFIG_SERVER_URL:http://localhost:8883}
-  eureka:
-    client:
-      serviceUrl:
-        # 默认注册中心地址
-        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8673/eureka/}
+eureka:
+  client:
+    serviceUrl:
+      # 默认注册中心地址
+      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8673/eureka/}
 ---
 spring:
   profiles: pre
@@ -83,11 +83,11 @@ spring:
     config:
       # 配置中心地址,在配置中心自身配置项变化时刷新使用
       uri: ${CONFIG_SERVER_URL:http://localhost:8884}
-  eureka:
-    client:
-      serviceUrl:
-        # 默认注册中心地址
-        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8674/eureka/}
+eureka:
+  client:
+    serviceUrl:
+      # 默认注册中心地址
+      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8674/eureka/}
 ---
 spring:
   profiles: prod
