@@ -1,19 +1,22 @@
-server:
-  port: 8762
 spring:
-  application:
-    name: config-server
   profiles:
     active: default,local,git
-  security:
-    basic:
-      enabled: true
-    user:
-      name: bone
-      password: 123456
+    # 当启用SVN配置仓库时，必须激活Subversion
+    #active: default,subversion,${env:local}
   cloud:
     config:
+      # 是否启动远程配置
+      enabled: true
+      # 拉取当前应用及全局配置项
+      name: ${spring.application.name},global
+      # 指定获取Profile的配置项
+      profile: ${env:local}
+      # 是否允许远程配置覆盖本地配置
+      allow-override: true
+      # 链接远程地址失败
+      failFast: true
       server:
+        # 是否启动从仓库中拉取配置信息
         bootstrap: true
         git:
           uri: https://github.com/zhanlu0729/spring-cloud.git
@@ -21,28 +24,83 @@ spring:
           defaultLabel: master
           username: tairan0729
           password: ouyezi0792
-      failFast: true
-      enabled: true
-      name: ${spring.application.name},global
+---
+spring:
+  profiles: local
   rabbitmq:
     addresses: localhost:5672
     username: guest
     password: liuqi
+  cloud:
+    config:
+      # 配置中心地址,在配置中心自身配置项变化时刷新使用
+      uri: ${CONFIG_SERVER_URL:http://localhost:8881}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+---
+spring:
+  profiles: dev
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: liuqi
+  cloud:
+    config:
+      # 配置中心地址,在配置中心自身配置项变化时刷新使用
+      uri: ${CONFIG_SERVER_URL:http://localhost:8882}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8672/eureka/}
+---
+spring:
+  profiles: test
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: liuqi
+  cloud:
+    config:
+      # 配置中心地址,在配置中心自身配置项变化时刷新使用
+      uri: ${CONFIG_SERVER_URL:http://localhost:8883}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8673/eureka/}
+---
+spring:
+  profiles: pre
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: liuqi
+  cloud:
+    config:
+      # 配置中心地址,在配置中心自身配置项变化时刷新使用
+      uri: ${CONFIG_SERVER_URL:http://localhost:8884}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8674/eureka/}
+---
+spring:
+  profiles: prod
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: liuqi
+  cloud:
+    config:
+      # 配置中心地址,在配置中心自身配置项变化时刷新使用
+      uri: ${CONFIG_SERVER_URL:http://localhost:8885}
 eureka:
   client:
-    service-url:
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
-  instance:
-    instance-id: ${HOSTNAME:localhost}:${server.port}
-    # 是否注册IP到eureka server，如不指定或设为false，那就会注册主机名到eureka server
-    prefer-ip-address: true
-    # 注册中心需要等待多长时间没有接收到心跳检测后可以删除该实例(默认90s)
-    leaseExpirationDurationInSeconds: 15
-    # #Eureka Client向Eureka Server发送心跳的时间间隔,默认30
-    leaseRenewalIntervalInSeconds: 5
-# 管理监测端口
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+    serviceUrl:
+      # 默认注册中心地址
+      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8675/eureka/}

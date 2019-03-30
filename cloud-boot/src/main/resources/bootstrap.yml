@@ -3,22 +3,24 @@ spring:
     active: default,${env:local}
   cloud:
     config:
+      # 快速失败
       failFast: true
       enabled: true
       name: ${spring.application.name},global
       profile: ${env:local}
       retry:
+        # 最大重试次数
         max-attempts: 5
         initial-interval: 1000
-        multiplier: 1.1
         max-interval: 3000
+        multiplier: 1.1
 ---
 spring:
   profiles: local
   cloud:
     config:
       # 配置中心地址
-      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+      uri: ${CONFIG_SERVER_URL:http://localhost:8881}
   eureka:
     client:
       serviceUrl:
@@ -30,45 +32,45 @@ spring:
   cloud:
     config:
       # 配置中心地址
-      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+      uri: ${CONFIG_SERVER_URL:http://localhost:8882}
   eureka:
     client:
       serviceUrl:
         # 默认注册中心地址
-        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8672/eureka/}
 ---
 spring:
   profiles: test
   cloud:
     config:
       # 配置中心地址
-      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+      uri: ${CONFIG_SERVER_URL:http://localhost:8883}
   eureka:
     client:
       serviceUrl:
         # 默认注册中心地址
-        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8673/eureka/}
 ---
 spring:
   profiles: pre
   cloud:
     config:
       # 配置中心地址
-      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+      uri: ${CONFIG_SERVER_URL:http://localhost:8884}
   eureka:
     client:
       serviceUrl:
         # 默认注册中心地址
-        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8674/eureka/}
 ---
 spring:
   profiles: prod
   cloud:
     config:
       # 配置中心地址
-      uri: ${CONFIG_SERVER_URL:http://localhost:8672}
+      uri: ${CONFIG_SERVER_URL:http://localhost:8885}
 eureka:
   client:
     serviceUrl:
       # 默认注册中心地址
-      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8675/eureka/}
