@@ -66,5 +66,9 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.spring.cloud.msc</groupId>
+      <artifactId>cloud-boot</artifactId>
+    </dependency>
   </dependencies>
 </project>

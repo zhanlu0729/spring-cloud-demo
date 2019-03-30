@@ -1,26 +1,15 @@
-package com.spring.cloud.boot;
+package com.spring.cloud.boot.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-/**
- *
- */
-@EnableDiscoveryClient
-@SpringBootApplication
-public class OAuthServerMain extends WebSecurityConfigurerAdapter {
-
-    public static void main(String[] args) {
-        SpringApplication.run(OAuthServerMain.class, args);
-    }
+@Configuration
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override

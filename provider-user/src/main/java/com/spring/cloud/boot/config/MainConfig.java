@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EntityScan(basePackages = "com.spring.cloud.msc")
 @EnableJpaRepositories(basePackages = "com.spring.cloud.msc")
-@ComponentScan(basePackages = "com.spring.cloud.msc")
 public class MainConfig {
 
 }

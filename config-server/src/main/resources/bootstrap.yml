@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: default,local,git
+    active: default,${env:local},git
     # 当启用SVN配置仓库时，必须激活Subversion
     #active: default,subversion,${env:local}
   cloud:
@@ -39,7 +39,7 @@ spring:
     client:
       serviceUrl:
         # 默认注册中心地址
-        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+        defaultZone: http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/
 ---
 spring:
   profiles: dev

@@ -1,32 +1,76 @@
-server:
-  servlet:
-    context-path: /uaa
 spring:
-  application:
-    name: oauth-server
+  profiles:
+    active: default,${env:local}
   cloud:
     config:
-      uri: http://localhost:8762/
-      profile: ${env:local}
+      # 快速失败
+      failFast: true
+      enabled: true
       name: ${spring.application.name},global
-  rabbitmq:
-    addresses: localhost:5672
-    username: guest
-    password: liuqi
-  profiles:
-    active: ${env:local}
-
-#安全配置
-security:
-  oauth2:
+      profile: ${env:local}
+      retry:
+        # 最大重试次数
+        max-attempts: 5
+        initial-interval: 1000
+        max-interval: 3000
+        multiplier: 1.1
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8881}
+  eureka:
     client:
-      #令牌端点
-      access-token-uri: http://localhost:8764/uaa/oauth/token
-      user-authorization-uri: http://localhost:8764/uaa/oauth/authorize
-      #授权
-      client-id: ${spring.application.name}
-      client-secret: secret
-    resource:
-      jwt:
-        key-value: springcloud123
-
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8671/eureka/}
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8882}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8672/eureka/}
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8883}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8673/eureka/}
+---
+spring:
+  profiles: pre
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8884}
+  eureka:
+    client:
+      serviceUrl:
+        # 默认注册中心地址
+        defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8674/eureka/}
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      # 配置中心地址
+      uri: ${CONFIG_SERVER_URL:http://localhost:8885}
+eureka:
+  client:
+    serviceUrl:
+      # 默认注册中心地址
+      defaultZone: ${EUREKA_SERVER_URL:http://${SECURITY_USERNAME:bone}:${SECURITY_PASSWORD:123456}@localhost:8675/eureka/}
