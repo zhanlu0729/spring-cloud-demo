@@ -37,12 +37,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore()).accessTokenConverter(jwtAccessTokenConverter())
+        endpoints.tokenStore(jwtTokenStore()).accessTokenConverter(jwtAccessTokenConverter())
             .authenticationManager(authenticationManager);
     }
 
     @Bean
-    public TokenStore tokenStore() {
+    public TokenStore jwtTokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 

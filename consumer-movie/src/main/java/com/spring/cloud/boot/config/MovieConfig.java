@@ -21,17 +21,18 @@ public class MovieConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.resourceId("WEIGHT").tokenStore(tokenStore());
+        resources.resourceId("WEIGHT").tokenStore(jwtTokenStore());
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/**").authenticated()
-            .antMatchers(HttpMethod.GET, "/test").hasAnyAuthority("WEIGHT_READ");
+            .antMatchers(HttpMethod.GET, "/test").hasAnyAuthority("WEIGHT_READ")
+            .antMatchers(HttpMethod.GET, "/user").hasAnyAuthority("WEIGHT_READ");
     }
 
     @Bean
-    public TokenStore tokenStore() {
+    public TokenStore jwtTokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 

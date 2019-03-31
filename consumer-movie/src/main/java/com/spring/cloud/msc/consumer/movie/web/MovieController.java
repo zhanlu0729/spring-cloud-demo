@@ -30,5 +30,4 @@ public class MovieController {
         return userFeignClient.findById(id);
     }
 
-
 }
