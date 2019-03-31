@@ -3,11 +3,16 @@ spring:
     active: default,${env:local}
   cloud:
     config:
-      # 快速失败
-      failFast: true
+      # 是否启动远程配置
       enabled: true
+      # 拉取当前应用及全局配置项
       name: ${spring.application.name},global
+      # 指定获取Profile的配置项
       profile: ${env:local}
+      # 是否允许远程配置覆盖本地配置
+      allow-override: true
+      # 链接远程地址失败
+      failFast: true
       retry:
         # 最大重试次数
         max-attempts: 5

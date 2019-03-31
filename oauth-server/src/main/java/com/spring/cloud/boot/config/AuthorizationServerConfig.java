@@ -24,7 +24,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("zuul-server").secret("secret").scopes("WEIGHT", "read").autoApprove(true)
+        clients.inMemory()
+            //客户端ID
+            .withClient("zuul_server")
+            //密钥
+            .secret("secret")
+            //作用域
+            .scopes("WEIGHT", "read").autoApprove(true)
             .authorities("WEIGHT_READ", "WEIGHT_WRITE")
             .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code");
     }

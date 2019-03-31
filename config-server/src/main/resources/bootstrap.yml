@@ -24,6 +24,8 @@ spring:
           defaultLabel: master
           username: tairan0729
           password: ouyezi0792
+          # 是否强制从远程存储库中提取，如果本地副本是脏的
+          force-pull: false
 ---
 spring:
   profiles: local
