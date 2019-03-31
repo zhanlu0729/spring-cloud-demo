@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MainTest {
 
     public static void main(String[] args) {
-        args = new String[]{"--spring.application.name=bone-cloud-eureka-server"};
+        args = new String[]{"--spring.application.name=zuul-server"};
         Main.run(MainTest.class, args);
     }
 
