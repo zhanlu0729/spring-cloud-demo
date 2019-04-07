@@ -20,26 +20,27 @@ import org.springframework.web.client.RestTemplate;
 public class MovieConfig extends ResourceServerConfigurerAdapter {
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.resourceId("WEIGHT").tokenStore(jwtTokenStore());
+    public void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeRequests().antMatchers("/**").authenticated()
+            .antMatchers(HttpMethod.GET, "/test").hasAnyAuthority("WEIGHT_READ")
+            .antMatchers(HttpMethod.GET, "/user/*").hasAnyAuthority("WEIGHT_READ");
     }
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/**").authenticated()
-            .antMatchers(HttpMethod.GET, "/test").hasAnyAuthority("WEIGHT_READ")
-            .antMatchers(HttpMethod.GET, "/user").hasAnyAuthority("WEIGHT_READ");
+    public void configure(ResourceServerSecurityConfigurer resources) {
+        resources.resourceId("WEIGHT").tokenStore(jwtTokenStore()).stateless(true);
     }
 
     @Bean
     public TokenStore jwtTokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
+        return new JwtTokenStore(accessTokenConverter());
     }
 
     @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+    public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("springcloud123");
+        converter.setSigningKey("secret");
         return converter;
     }
 

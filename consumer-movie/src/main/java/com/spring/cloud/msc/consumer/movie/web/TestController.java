@@ -14,7 +14,7 @@ public class TestController {
     }
 
     @GetMapping(value = "/test")
-    public String auth(HttpServletRequest request) {
+    public String test(HttpServletRequest request) {
         System.err.println("-----------header------starter-----------");
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {

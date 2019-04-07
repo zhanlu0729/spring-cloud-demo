@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -16,8 +17,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * @author ylqi_
  */
 @Configuration
-@EnableAuthorizationServer
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+@EnableAuthorizationServer //开启授权服务器
+public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -27,18 +28,22 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         clients.inMemory()
             //客户端ID
             .withClient("zuul_server")
-            //密钥
             .secret("secret")
             //作用域
             .scopes("WEIGHT", "read").autoApprove(true)
-            .authorities("WEIGHT_READ", "WEIGHT_WRITE")
-            .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code");
+            .authorizedGrantTypes("authorization_code", "password", "refresh_token", "implicit");
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(jwtTokenStore()).accessTokenConverter(jwtAccessTokenConverter())
-            .authenticationManager(authenticationManager);
+            .authenticationManager(authenticationManager).reuseRefreshTokens(false);
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
+            .allowFormAuthenticationForClients();
     }
 
     @Bean
@@ -49,7 +54,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("springcloud123");
+        converter.setSigningKey("secret");
         return converter;
     }
 
