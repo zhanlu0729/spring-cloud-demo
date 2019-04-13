@@ -1,4 +1,4 @@
-## Spring学习笔记
+## Spring学习笔记 20190413
 ### Spring中bean的生命周期
 1. **Bean的建立** 由BeanFactory读取Bean定义文件并实例化
 2. **Setter注入** 执行Bean的属性依赖注入，Spring按照Bean定义信息配置Bean所有属性
