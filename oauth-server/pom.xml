@@ -9,7 +9,7 @@
     <version>0.0.1</version>
     <relativePath/>
   </parent>
-  
+
   <artifactId>oauth-server</artifactId>
   <version>1.0.0</version>
   <name>oauth-server</name>

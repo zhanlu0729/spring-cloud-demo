@@ -11,6 +11,6 @@ public class JWTTests {
     public void testJwt() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
 
-        System.err.println("------------------"+encoder.matches("myPassword","myPassword"));
+        System.err.println("------------------" + encoder.matches("myPassword", "myPassword"));
     }
 }

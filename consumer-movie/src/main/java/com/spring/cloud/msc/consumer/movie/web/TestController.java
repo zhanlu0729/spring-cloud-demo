@@ -1,7 +1,5 @@
 package com.spring.cloud.msc.consumer.movie.web;
 
-import java.util.Enumeration;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +11,7 @@ public class TestController {
         return "本地跳转：" + (a + b);
     }
 
-    @GetMapping(value = "/test")
+    /*@GetMapping(value = "/test")
     public String test(HttpServletRequest request) {
         System.err.println("-----------header------starter-----------");
         Enumeration<String> headerNames = request.getHeaderNames();
@@ -23,6 +21,6 @@ public class TestController {
         }
         System.err.println("-----------header------end-----------");
         return "test";
-    }
+    }*/
 
 }

@@ -24,7 +24,7 @@ public class ThirdPreFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return (boolean)RequestContext.getCurrentContext().get("logic-is-success");
+        return (boolean) RequestContext.getCurrentContext().get("logic-is-success");
     }
 
     @Override

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@FeignClient(name = "provider-user", path = "/user",fallback = UserFeignClientImpl.class)
+@FeignClient(name = "provider-user", path = "/user", fallback = UserFeignClientImpl.class)
 public interface UserFeignClient {
 
     @GetMapping(value = "/{id}")
